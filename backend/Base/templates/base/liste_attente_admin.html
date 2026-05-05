@@ -1,0 +1,19 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<div class="container py-5">
+    <h2 class="fw-bold mb-4">Liste d’attente</h2>
+
+    <div class="card shadow border-0 rounded-4 p-4">
+        {% for attente in attentes %}
+            <div class="border-bottom py-3">
+                <strong>{{ attente.utilisateur.username }}</strong>
+                <br>
+                Événement : {{ attente.evenement.titre }}
+            </div>
+        {% empty %}
+            <p class="text-muted">Aucune personne en liste d’attente.</p>
+        {% endfor %}
+    </div>
+</div>
+{% endblock %}

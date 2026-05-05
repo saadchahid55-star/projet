@@ -1,0 +1,61 @@
+{% extends 'base.html' %}
+
+{% block title %}Détail événement{% endblock %}
+
+{% block content %}
+
+<div class="container py-5">
+    <div class="card shadow p-4">
+
+        {% if evenement.image %}
+            <img src="{{ evenement.image.url }}" class="img-fluid rounded mb-4">
+        {% endif %}
+
+        <h1 class="fw-bold">{{ evenement.titre }}</h1>
+
+        <p class="text-muted">
+            {{ evenement.lieu }} | {{ evenement.date }} à {{ evenement.heure }}
+        </p>
+
+        <p>{{ evenement.description }}</p>
+
+        <ul class="list-group mb-4">
+            <li class="list-group-item">Durée : {{ evenement.duree }} minutes</li>
+            <li class="list-group-item">Capacité : {{ evenement.capacite }} participants</li>
+            <li class="list-group-item">Catégorie : {{ evenement.categorie }}</li>
+        </ul>
+
+        {% if user.is_authenticated and user.role == 'administrateur' %}
+            <a href="{% url 'modifier_evenement' evenement.id %}" class="btn btn-warning">
+                Modifier
+            </a>
+
+            <a href="{% url 'supprimer_evenement' evenement.id %}" class="btn btn-danger">
+                Supprimer
+            </a>
+        {% endif %}
+
+        <a href="{% url 'liste_evenements' %}" class="btn btn-secondary">
+            Retour
+        </a>
+        {% if user.is_authenticated and user.role == 'client' %}
+    <div class="mt-4">
+        {% if evenement.places_restantes > 0 %}
+            <a href="{% url 'inscrire_evenement' evenement.id %}" class="btn btn-success">
+                S’inscrire à cet événement
+            </a>
+        {% else %}
+            <a href="{% url 'inscrire_evenement' evenement.id %}" class="btn btn-warning">
+                Rejoindre la liste d’attente
+            </a>
+        {% endif %}
+
+        <a href="{% url 'desinscrire_evenement' evenement.id %}" class="btn btn-outline-danger">
+            Se désinscrire
+        </a>
+    </div>
+{% endif %}
+    </div>
+</div>
+
+{% endblock %}

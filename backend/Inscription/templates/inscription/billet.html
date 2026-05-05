@@ -1,0 +1,84 @@
+{% extends 'base.html' %}
+
+{% block content %}
+
+<div class="container py-5">
+
+    <div class="card shadow-lg border-0 rounded-4 mx-auto overflow-hidden" style="max-width: 800px;">
+
+        <div class="bg-primary text-white p-4 d-flex justify-content-between align-items-center">
+            <div>
+                <h2 class="fw-bold mb-1">🎟️ Billet EventManager</h2>
+                <p class="mb-0">Confirmation d’inscription</p>
+            </div>
+            <span class="badge bg-light text-primary fs-6">
+                #{{ inscription.id }}
+            </span>
+        </div>
+
+        <div class="p-5">
+
+            <h3 class="fw-bold mb-4">
+                {{ inscription.evenement.titre }}
+            </h3>
+
+            <div class="row g-4 mb-4">
+
+                <div class="col-md-6">
+                    <div class="border rounded-4 p-3 h-100">
+                        <p class="text-muted mb-1">Participant</p>
+                        <h5 class="fw-bold mb-0">
+                            {{ inscription.utilisateur.username }}
+                        </h5>
+                    </div>
+                </div>
+
+                <div class="col-md-6">
+                    <div class="border rounded-4 p-3 h-100">
+                        <p class="text-muted mb-1">Lieu</p>
+                        <h5 class="fw-bold mb-0">
+                            {{ inscription.evenement.lieu }}
+                        </h5>
+                    </div>
+                </div>
+
+                <div class="col-md-6">
+                    <div class="border rounded-4 p-3 h-100">
+                        <p class="text-muted mb-1">Date</p>
+                        <h5 class="fw-bold mb-0">
+                            {{ inscription.evenement.date }}
+                        </h5>
+                    </div>
+                </div>
+
+                <div class="col-md-6">
+                    <div class="border rounded-4 p-3 h-100">
+                        <p class="text-muted mb-1">Heure</p>
+                        <h5 class="fw-bold mb-0">
+                            {{ inscription.evenement.heure }}
+                        </h5>
+                    </div>
+                </div>
+
+            </div>
+
+            <div class="alert alert-info rounded-4">
+                Présentez ce billet à l’entrée de l’événement.
+            </div>
+
+            <div class="d-flex justify-content-between mt-4">
+                <a href="{% url 'dashboard_client' %}" class="btn btn-secondary">
+                    Retour
+                </a>
+
+                <button onclick="window.print()" class="btn btn-success">
+                    Imprimer le billet
+                </button>
+            </div>
+
+        </div>
+    </div>
+
+</div>
+
+{% endblock %}

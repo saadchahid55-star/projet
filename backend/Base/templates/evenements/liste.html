@@ -1,0 +1,54 @@
+{% extends 'base.html' %}
+
+{% block content %}
+
+<h2 class="title mb-4">🎟️ Événements</h2>
+
+<div class="row">
+
+{% for e in evenements %}
+
+<div class="col-md-6 mb-4">
+    <div class="card card-pro p-4">
+
+        <h4 class="fw-bold">{{ e.titre }}</h4>
+        <p class="text-muted">{{ e.description|truncatewords:15 }}</p>
+
+        <div class="mb-2">
+            📍 {{ e.lieu }}<br>
+            📅 {{ e.date }} - {{ e.heure }}
+        </div>
+
+        <div class="mb-3">
+            Places restantes : <b>{{ e.places_restantes }}</b>
+        </div>
+
+        {% if user.is_authenticated %}
+
+            {% if user.role == "client" %}
+                <a href="{% url 'inscrire_evenement' e.id %}" class="btn btn-success w-100">
+                    S’inscrire
+                </a>
+            {% endif %}
+
+            {% if user.role == "administrateur" %}
+                <div class="d-flex gap-2">
+                    <a href="{% url 'modifier_evenement' e.id %}" class="btn btn-warning w-50">Modifier</a>
+                    <a href="{% url 'supprimer_evenement' e.id %}" class="btn btn-danger w-50">Supprimer</a>
+                </div>
+            {% endif %}
+
+        {% else %}
+            <a href="/login/" class="btn btn-main w-100">
+                Connectez-vous
+            </a>
+        {% endif %}
+
+    </div>
+</div>
+
+{% endfor %}
+
+</div>
+
+{% endblock %}

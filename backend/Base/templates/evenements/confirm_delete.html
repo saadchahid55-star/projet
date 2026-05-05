@@ -1,0 +1,22 @@
+{% extends 'base.html' %}
+
+{% block title %}Supprimer événement{% endblock %}
+
+{% block content %}
+
+<div class="container py-5">
+    <div class="card p-4 shadow text-center">
+        <h2>Supprimer cet événement ?</h2>
+        <p class="text-muted">{{ evenement.titre }}</p>
+
+        <form method="POST">
+            {% csrf_token %}
+            <button class="btn btn-danger">Oui, supprimer</button>
+            <a href="{% url 'detail_evenement' evenement.id %}" class="btn btn-secondary">
+                Annuler
+            </a>
+        </form>
+    </div>
+</div>
+
+{% endblock %}

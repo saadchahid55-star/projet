@@ -1,0 +1,29 @@
+{% extends 'base.html' %}
+
+{% block content %}
+
+<div class="card card-pro p-5 mx-auto" style="max-width: 800px;">
+
+<h3 class="mb-4">Créer un événement</h3>
+
+<form method="POST" enctype="multipart/form-data">
+    {% csrf_token %}
+
+    {{ form.as_p }}
+
+    <div class="mt-3">
+        <button class="btn btn-main">Enregistrer</button>
+        <a href="/evenements/" class="btn btn-secondary">Annuler</a>
+    </div>
+
+</form>
+
+<hr>
+
+<a href="/categorie/creer/" class="btn btn-outline-primary mt-3">
+    ➕ Créer une catégorie
+</a>
+
+</div>
+
+{% endblock %}

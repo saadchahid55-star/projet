@@ -1,0 +1,128 @@
+{% extends 'base.html' %}
+
+{% block content %}
+
+<div class="container py-5">
+    <div class="card shadow-lg border-0 rounded-4 p-4 mx-auto" style="max-width: 900px;">
+
+        <!-- Titre + bouton catégorie -->
+        <div class="d-flex justify-content-between align-items-center mb-4">
+            <h2 class="fw-bold text-primary mb-0">
+                Créer un événement
+            </h2>
+
+            <a href="{% url 'creer_categorie' %}" class="btn btn-outline-primary">
+                + Créer catégorie
+            </a>
+        </div>
+
+        <!-- Formulaire -->
+        <form method="POST" enctype="multipart/form-data">
+            {% csrf_token %}
+
+            <div class="row g-3">
+
+                <!-- Titre -->
+                <div class="col-md-6">
+                    <label class="form-label fw-semibold">Titre</label>
+                    {{ form.titre }}
+                </div>
+
+                <!-- Lieu -->
+                <div class="col-md-6">
+                    <label class="form-label fw-semibold">Lieu</label>
+                    {{ form.lieu }}
+                </div>
+
+                <!-- Description -->
+                <div class="col-12">
+                    <label class="form-label fw-semibold">Description</label>
+                    {{ form.description }}
+                </div>
+
+                <!-- Date -->
+                <div class="col-md-4">
+                    <label class="form-label fw-semibold">Date</label>
+                    {{ form.date }}
+                </div>
+
+                <!-- Heure -->
+                <div class="col-md-4">
+                    <label class="form-label fw-semibold">Heure</label>
+                    {{ form.heure }}
+                </div>
+
+                <!-- Durée -->
+                <div class="col-md-4">
+                    <label class="form-label fw-semibold">Durée</label>
+                    {{ form.duree }}
+                </div>
+
+                <!-- Capacité -->
+                <div class="col-md-6">
+                    <label class="form-label fw-semibold">Capacité</label>
+                    {{ form.capacite }}
+                </div>
+
+                <!-- Image -->
+                <div class="col-md-6">
+                    <label class="form-label fw-semibold">Image</label>
+                    {{ form.image }}
+                </div>
+                <div class="row">
+    <div class="col-md-8">
+        <label class="form-label">Prix</label>
+        <input type="number" name="prix" class="form-control" placeholder="Ex: 100">
+    </div>
+
+    <div class="col-md-4">
+        <label class="form-label">Devise</label>
+        <select name="devise" class="form-select">
+            <option value="EUR">€ Euro</option>
+            <option value="MAD">MAD</option>
+            <option value="USD">$ Dollar</option>
+        </select>
+    </div>
+</div>
+
+                <!-- Catégorie + bouton -->
+                <div class="col-md-6">
+                    <label class="form-label fw-semibold">Catégorie</label>
+
+                    <div class="input-group">
+                        {{ form.categorie }}
+                        <a href="{% url 'creer_categorie' %}" class="btn btn-primary">
+                            +
+                        </a>
+                    </div>
+
+                    <small class="text-muted">
+                        Cliquez sur + pour ajouter une catégorie
+                    </small>
+                </div>
+
+                <!-- Organisateur -->
+                <div class="col-md-6">
+                    <label class="form-label fw-semibold">Organisateur</label>
+                    {{ form.organisateur }}
+                </div>
+
+            </div>
+
+            <!-- Boutons -->
+            <div class="d-flex justify-content-end gap-2 mt-4">
+                <a href="{% url 'liste_evenements' %}" class="btn btn-secondary px-4">
+                    Annuler
+                </a>
+
+                <button type="submit" class="btn btn-success px-4">
+                    Enregistrer
+                </button>
+            </div>
+
+        </form>
+
+    </div>
+</div>
+
+{% endblock %}

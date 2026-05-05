@@ -1,0 +1,137 @@
+{% extends 'base.html' %}
+
+{% block content %}
+
+<div class="container py-5">
+
+    <div class="d-flex justify-content-between align-items-center mb-4">
+        <div>
+            <h1 class="fw-bold mb-1">🎉 Mon espace</h1>
+            <p class="text-muted mb-0">Suivez vos inscriptions, billets et notifications.</p>
+        </div>
+
+        <a href="{% url 'liste_evenements' %}" class="btn btn-primary">
+            Voir les événements
+        </a>
+    </div>
+
+    <div class="row g-4 mb-5">
+
+        <div class="col-md-4">
+            <div class="dashboard-card">
+                <div class="dashboard-icon text-success">🎟️</div>
+                <h3 class="fw-bold">{{ inscriptions|length }}</h3>
+                <p class="text-muted mb-0">Mes inscriptions</p>
+            </div>
+        </div>
+
+        <div class="col-md-4">
+            <div class="dashboard-card">
+                <div class="dashboard-icon text-warning">⏳</div>
+                <h3 class="fw-bold">{{ attentes|length }}</h3>
+                <p class="text-muted mb-0">Liste d’attente</p>
+            </div>
+        </div>
+
+        <div class="col-md-4">
+            {% for notification in notifications %}
+         <div class="alert alert-light border rounded-3">
+        🔔 {{ notification.message }}
+        </div>
+            {% empty %}
+                 <p class="text-muted">Aucune notification.</p>
+            {% endfor %}
+        </div>
+
+    </div>
+        <div class="box mt-4">
+    <h4 class="fw-bold mb-3">Rappels</h4>
+
+    {% for rappel in rappels %}
+        <div class="alert alert-primary border rounded-3">
+            ⏰ {{ rappel.message }}
+            <br>
+            <small class="text-muted">{{ rappel.date_creation }}</small>
+        </div>
+    {% empty %}
+        <p class="text-muted mb-0">Aucun rappel.</p>
+    {% endfor %}
+        </div>
+    <div class="row g-4">
+
+        <div class="col-md-8">
+            <div class="box mb-4">
+                <h4 class="fw-bold mb-3">Mes inscriptions</h4>
+
+                {% for inscription in inscriptions %}
+                    <div class="border-bottom py-3">
+                        <h5 class="fw-bold">{{ inscription.evenement.titre }}</h5>
+                        <p class="text-muted mb-2">
+                            📅 {{ inscription.evenement.date }} à {{ inscription.evenement.heure }}
+                            <br>
+                            📍 {{ inscription.evenement.lieu }}
+                        </p>
+
+                        <a href="{% url 'detail_evenement' inscription.evenement.id %}" class="btn btn-sm btn-outline-primary">
+                            Voir événement
+                        </a>
+
+                        <a href="{% url 'billet' inscription.id %}" class="btn btn-sm btn-success">
+                            Voir billet
+                        </a>
+
+                        <a href="{% url 'desinscrire_evenement' inscription.evenement.id %}" class="btn btn-sm btn-danger">
+                            Se désinscrire
+                        </a>
+                    </div>
+                {% empty %}
+                    <p class="text-muted mb-0">Vous n’êtes inscrit à aucun événement.</p>
+                {% endfor %}
+            </div>
+
+            <div class="box">
+                <h4 class="fw-bold mb-3">Liste d’attente</h4>
+
+                {% for attente in attentes %}
+                    <div class="border-bottom py-3">
+                        <h5 class="fw-bold">{{ attente.evenement.titre }}</h5>
+                        <p class="text-muted mb-0">
+                            Vous êtes en attente pour cet événement.
+                        </p>
+                    </div>
+                {% empty %}
+                    <p class="text-muted mb-0">Vous n’êtes dans aucune liste d’attente.</p>
+                {% endfor %}
+            </div>
+        </div>
+
+        <div class="col-md-4">
+            <div class="box">
+                <h4 class="fw-bold mb-3">Notifications</h4>
+
+                {% for notification in notifications %}
+                    <div class="alert alert-light border rounded-3">
+                        🔔 {{ notification.message }}
+                    </div>
+                {% empty %}
+                    <p class="text-muted mb-0">Aucune notification.</p>
+                {% endfor %}
+            </div>
+        </div>
+        <div class="box mt-4">
+    <h4 class="fw-bold mb-3">Rappels</h4>
+
+    {% for rappel in rappels %}
+        <div class="alert alert-primary border rounded-3">
+            ⏰ {{ rappel.message }}
+        </div>
+    {% empty %}
+        <p class="text-muted mb-0">Aucun rappel.</p>
+    {% endfor %}
+</div>
+
+    </div>
+
+</div>
+
+{% endblock %}

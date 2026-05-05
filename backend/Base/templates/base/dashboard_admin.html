@@ -1,0 +1,90 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<div class="container py-5">
+
+    <div class="d-flex justify-content-between align-items-center mb-4">
+        <div>
+            <h1 class="fw-bold mb-1">👑 Dashboard Admin</h1>
+            <p class="text-muted mb-0">Vue globale de votre plateforme EventManager</p>
+        </div>
+
+        <div class="d-flex gap-2">
+            <a href="{% url 'creer_evenement' %}" class="btn btn-primary">+ Événement</a>
+            <a href="{% url 'creer_categorie' %}" class="btn btn-outline-primary">+ Catégorie</a>
+        </div>
+    </div>
+
+   <div class="row g-4 mb-5">
+
+    <div class="col-md-3">
+        <div class="dashboard-card">
+            <div class="dashboard-icon text-primary">👥</div>
+            <h3 class="fw-bold">{{ total_utilisateurs }}</h3>
+            <p class="text-muted mb-0">Utilisateurs</p>
+        </div>
+    </div>
+
+    <div class="col-md-3">
+        <div class="dashboard-card">
+            <div class="dashboard-icon text-success">📅</div>
+            <h3 class="fw-bold">{{ total_evenements }}</h3>
+            <p class="text-muted mb-0">Événements</p>
+        </div>
+    </div>
+
+    <div class="col-md-3">
+        <div class="dashboard-card">
+            <div class="dashboard-icon text-warning">🎟️</div>
+            <h3 class="fw-bold">{{ total_inscriptions }}</h3>
+            <p class="text-muted mb-0">Inscriptions</p>
+        </div>
+    </div>
+
+    <div class="col-md-3">
+        <div class="dashboard-card">
+            <div class="dashboard-icon text-danger">⏳</div>
+            <h3 class="fw-bold">{{ total_attente }}</h3>
+            <p class="text-muted mb-0">Liste d’attente</p>
+        </div>
+    </div>
+
+</div>
+
+        <table class="table table-hover align-middle">
+            <thead class="table-light">
+                <tr>
+                    <th>Titre</th>
+                    <th>Lieu</th>
+                    <th>Date</th>
+                    <th>Capacité</th>
+                    <th>Actions</th>
+                </tr>
+            </thead>
+
+            <tbody>
+                {% for e in evenements %}
+                <tr>
+                    <td class="fw-semibold">{{ e.titre }}</td>
+                    <td>{{ e.lieu }}</td>
+                    <td>{{ e.date }}</td>
+                    <td>{{ e.capacite }}</td>
+                    <td>
+                        <a href="{% url 'detail_evenement' e.id %}" class="btn btn-sm btn-outline-primary">Voir</a>
+                        <a href="{% url 'modifier_evenement' e.id %}" class="btn btn-sm btn-warning">Modifier</a>
+                        <a href="{% url 'supprimer_evenement' e.id %}" class="btn btn-sm btn-danger">Supprimer</a>
+                    </td>
+                </tr>
+                {% empty %}
+                <tr>
+                    <td colspan="5" class="text-center text-muted py-4">
+                        Aucun événement pour le moment.
+                    </td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+
+</div>
+{% endblock %}
