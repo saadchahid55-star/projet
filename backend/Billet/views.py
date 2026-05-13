@@ -9,8 +9,9 @@ from .models import Billet
 
 @login_required
 def voir_billet(request, id):
+    
     billet = get_object_or_404(Billet, id=id)
-
+#rendre la page du billet uniquement si l'utilisateur connecté est le propriétaire du billet, sinon rediriger vers la page d'accueil
     if billet.inscription.utilisateur != request.user:
         return redirect('home')
 

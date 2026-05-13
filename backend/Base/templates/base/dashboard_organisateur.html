@@ -1,0 +1,138 @@
+{% extends 'base.html' %}
+
+{% block content %}
+
+<div class="container py-5">
+
+    <div class="d-flex justify-content-between align-items-center mb-4">
+        <div>
+            <h1 class="fw-bold">🎤 Dashboard Organisateur</h1>
+            <p class="text-muted">Gérez vos événements, billets et listes d’attente.</p>
+        </div>
+
+        <div class="d-flex gap-2">
+            <a href="{% url 'creer_evenement' %}" class="btn btn-primary">
+                + Événement
+            </a>
+
+            <a href="{% url 'creer_categorie' %}" class="btn btn-success">
+                + Catégorie
+            </a>
+        </div>
+    </div>
+
+    <div class="row g-4 mb-5">
+        <div class="col-md-4">
+            <div class="dashboard-card">
+                <div class="dashboard-icon text-primary">📅</div>
+                <h3 class="fw-bold">{{ total_evenements }}</h3>
+                <p class="text-muted mb-0">Mes événements</p>
+            </div>
+        </div>
+
+        <div class="col-md-4">
+            <div class="dashboard-card">
+                <div class="dashboard-icon text-success">🎟️</div>
+                <h3 class="fw-bold">{{ total_inscriptions }}</h3>
+                <p class="text-muted mb-0">Inscriptions</p>
+            </div>
+        </div>
+
+        <div class="col-md-4">
+            <div class="dashboard-card">
+                <div class="dashboard-icon text-warning">⏳</div>
+                <h3 class="fw-bold">{{ total_attente }}</h3>
+                <p class="text-muted mb-0">Liste d’attente</p>
+            </div>
+        </div>
+    </div>
+
+    <div class="box mb-4">
+        <h4 class="fw-bold mb-3">Mes événements</h4>
+
+        <table class="table table-hover align-middle">
+            <thead>
+                <tr>
+                    <th>Titre</th>
+                    <th>Lieu</th>
+                    <th>Date</th>
+                    <th>Capacité</th>
+                    <th>Actions</th>
+                </tr>
+            </thead>
+
+            <tbody>
+                {% for evenement in evenements %}
+                <tr>
+                    <td>{{ evenement.titre }}</td>
+                    <td>{{ evenement.lieu }}</td>
+                    <td>{{ evenement.date }}</td>
+                    <td>{{ evenement.capacite }}</td>
+                    <td>
+                        <a href="{% url 'detail_evenement' evenement.id %}" class="btn btn-sm btn-outline-primary">
+                            Voir
+                        </a>
+
+                        <a href="{% url 'modifier_evenement' evenement.id %}" class="btn btn-sm btn-warning">
+                            Modifier
+                        </a>
+
+                        <a href="{% url 'supprimer_evenement' evenement.id %}" class="btn btn-sm btn-danger">
+                            Supprimer
+                        </a>
+                    </td>
+                </tr>
+                {% empty %}
+                <tr>
+                    <td colspan="5" class="text-muted text-center">
+                        Aucun événement créé.
+                    </td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+
+    <div class="row g-4">
+
+        <div class="col-md-6">
+            <div class="box">
+                <h4 class="fw-bold mb-3">Liste d’attente</h4>
+
+                {% for attente in attentes %}
+                    <div class="border-bottom py-3">
+                        <strong>{{ attente.utilisateur.username }}</strong>
+                        <br>
+                        <span class="text-muted">{{ attente.evenement.titre }}</span>
+                    </div>
+                {% empty %}
+                    <p class="text-muted">Aucune personne en liste d’attente.</p>
+                {% endfor %}
+            </div>
+        </div>
+
+        <div class="col-md-6">
+            <div class="box">
+                <h4 class="fw-bold mb-3">Billets / Inscriptions</h4>
+
+                {% for inscription in inscriptions %}
+                    <div class="border-bottom py-3">
+                        <strong>{{ inscription.utilisateur.username }}</strong>
+                        <br>
+                        <span class="text-muted">{{ inscription.evenement.titre }}</span>
+                        <br>
+                        <a href="{% url 'billet' inscription.id %}" class="btn btn-sm btn-success mt-2">
+                            Voir billet
+                        </a>
+                    </div>
+                {% empty %}
+                    <p class="text-muted">Aucune inscription.</p>
+                {% endfor %}
+            </div>
+        </div>
+
+    </div>
+
+</div>
+
+{% endblock %}

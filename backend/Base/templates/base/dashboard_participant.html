@@ -6,7 +6,7 @@
 
     <div class="d-flex justify-content-between align-items-center mb-4">
         <div>
-            <h1 class="fw-bold mb-1">🎉 Mon espace</h1>
+            <h1 class="fw-bold mb-1"> Mon espace</h1>
             <p class="text-muted mb-0">Suivez vos inscriptions, billets et notifications.</p>
         </div>
 
@@ -118,17 +118,7 @@
                 {% endfor %}
             </div>
         </div>
-        <div class="box mt-4">
-    <h4 class="fw-bold mb-3">Rappels</h4>
-
-    {% for rappel in rappels %}
-        <div class="alert alert-primary border rounded-3">
-            ⏰ {{ rappel.message }}
-        </div>
-    {% empty %}
-        <p class="text-muted mb-0">Aucun rappel.</p>
-    {% endfor %}
-</div>
+        
 
     </div>
 

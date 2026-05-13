@@ -1,0 +1,43 @@
+{% extends 'base.html' %}
+
+{% block content %}
+
+<div class="container py-5">
+    <h2 class="fw-bold mb-4">🎟️ Liste des billets</h2>
+
+    <div class="card border-0 shadow-sm rounded-4 p-4">
+        <table class="table table-hover align-middle">
+            <thead>
+                <tr>
+                    <th>Participant</th>
+                    <th>Événement</th>
+                    <th>Date</th>
+                    <th>Action</th>
+                </tr>
+            </thead>
+
+            <tbody>
+                {% for inscription in inscriptions %}
+                <tr>
+                    <td>{{ inscription.utilisateur.username }}</td>
+                    <td>{{ inscription.evenement.titre }}</td>
+                    <td>{{ inscription.evenement.date }}</td>
+                    <td>
+                        <a href="{% url 'billet' inscription.id %}" class="btn btn-sm btn-success">
+                            Voir billet
+                        </a>
+                    </td>
+                </tr>
+                {% empty %}
+                <tr>
+                    <td colspan="4" class="text-center text-muted">
+                        Aucun billet disponible.
+                    </td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+</div>
+
+{% endblock %}

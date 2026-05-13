@@ -1,0 +1,73 @@
+{% extends 'base.html' %}
+
+{% block content %}
+
+<div class="container py-5">
+
+    <h1 class="fw-bold mb-4">👥 Gestion des utilisateurs</h1>
+
+    <div class="card shadow-sm border-0 rounded-4 p-4">
+
+        <table class="table table-hover align-middle">
+            <thead>
+                <tr>
+                    <th>Nom utilisateur</th>
+                    <th>Email</th>
+                    <th>Rôle</th>
+                    <th>Statut</th>
+                    <th class="text-end">Actions</th>
+                </tr>
+            </thead>
+
+            <tbody>
+                {% for user_item in utilisateurs %}
+                <tr>
+                    <td>{{ user_item.username }}</td>
+                    <td>{{ user_item.email }}</td>
+                    <td>
+                        <span class="badge bg-primary">
+                            {{ user_item.role }}
+                        </span>
+                    </td>
+                    <td>
+                        {% if user_item.is_active %}
+                            <span class="badge bg-success">Actif</span>
+                        {% else %}
+                            <span class="badge bg-danger">Bloqué</span>
+                        {% endif %}
+                    </td>
+                    <td class="text-end">
+                        {% if user_item.is_active %}
+                            <a href="{% url 'bloquer_utilisateur' user_item.id %}"
+                               class="btn btn-warning btn-sm"
+                               onclick="return confirm('Bloquer cet utilisateur ?')">
+                                Bloquer
+                            </a>
+                        {% else %}
+                            <a href="{% url 'debloquer_utilisateur' user_item.id %}"
+                               class="btn btn-success btn-sm">
+                                Débloquer
+                            </a>
+                        {% endif %}
+
+                        <a href="{% url 'supprimer_utilisateur' user_item.id %}"
+                           class="btn btn-danger btn-sm"
+                           onclick="return confirm('Supprimer définitivement cet utilisateur ?')">
+                            Supprimer
+                        </a>
+                    </td>
+                </tr>
+                {% empty %}
+                <tr>
+                    <td colspan="5" class="text-center text-muted">
+                        Aucun utilisateur trouvé.
+                    </td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+
+    </div>
+</div>
+
+{% endblock %}

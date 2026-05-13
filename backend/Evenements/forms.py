@@ -5,7 +5,7 @@ from .models import Evenement
 class EvenementForm(forms.ModelForm):
     class Meta:
         model = Evenement
-        # 🔥 On enlève organisateur → sera ajouté automatiquement
+        
         fields = [
             'titre',
             'description',

@@ -26,6 +26,14 @@
 <p><strong>Heure :</strong> {{ billet.inscription.evenement.heure }}</p>
 
 <p><strong>Code :</strong></p>
+{% if billet.qr_code %}
+    <div class="text-center mt-4">
+        <h4>QR Code du billet</h4>
+        <img src="{{ billet.qr_code.url }}" style="max-width:250px;">
+    </div>
+{% else %}
+    <p class="text-danger">QR code non généré.</p>
+{% endif %}
 
 <h2 class="text-success">{{ billet.code }}</h2>
 

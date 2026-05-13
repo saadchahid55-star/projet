@@ -288,11 +288,45 @@ body {
                         <li class="nav-item">
                             <a class="nav-link" href="{% url 'billets_admin' %}">Billets</a>
                         </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="{% url 'gestion_utilisateurs' %}">
+                           Utilisateurs
+                            </a>
+                        </li>  
+                    {% endif %}
+                    {% if user.role == "organisateur" %}
+                        <li class="nav-item">
+                            <a class="nav-link" href="{% url 'dashboard_organisateur' %}">
+                               Dashboard Organisateur
+                            </a>
+                        </li>
+
+                        <li class="nav-item">
+                            <a class="btn btn-primary btn-sm px-3" href="{% url 'creer_evenement' %}">
+                               + Événement
+                            </a>
+                        </li>
+
+                        <li class="nav-item">
+                            <a class="btn btn-success btn-sm px-3" href="{% url 'creer_categorie' %}">
+                               + Catégorie
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="{% url 'liste_attente' %}">
+                                Liste d’attente
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="{% url 'liste_billets' %}">
+                                 Billets
+                            </a>
+                        </li>
                     {% endif %}
 
-                    {% if user.role == "client" %}
+                    {% if user.role == "participant" %}
                         <li class="nav-item">
-                            <a class="nav-link" href="{% url 'dashboard_client' %}">Mon espace</a>
+                            <a class="nav-link" href="{% url 'dashboard_participant' %}">Mon espace</a>
                         </li>
 
                         <li class="nav-item">

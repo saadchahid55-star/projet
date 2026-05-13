@@ -5,8 +5,9 @@ from Utilisateur.models import Utilisateur
 class RegisterForm(UserCreationForm):
     role = forms.ChoiceField(
         choices=[
-            ('client', 'Client'),
+            ('participant', 'Participant'),
             ('administrateur', 'Administrateur'),
+            ('organisateur', 'Organisateur'),
         ],
         widget=forms.Select(attrs={'class': 'form-select'})
     )

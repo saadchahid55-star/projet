@@ -65,9 +65,21 @@
             <div class="alert alert-info rounded-4">
                 Présentez ce billet à l’entrée de l’événement.
             </div>
-
+            {% if billet.qr_code %}
+    <div class="text-center my-4">
+        <h5 class="fw-bold mb-3">QR Code du billet</h5>
+        <img src="{{ billet.qr_code.url }}"
+             alt="QR Code"
+             class="img-fluid border rounded-3 p-2 bg-white"
+             style="max-width: 180px;">
+    </div>
+{% else %}
+    <p class="text-danger text-center">
+        QR code non généré.
+    </p>
+{% endif %}
             <div class="d-flex justify-content-between mt-4">
-                <a href="{% url 'dashboard_client' %}" class="btn btn-secondary">
+                <a href="{% url 'dashboard_participant' %}" class="btn btn-secondary">
                     Retour
                 </a>
 
